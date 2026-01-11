@@ -2,8 +2,12 @@
   "name": "my-v0-project",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
-    "build": "next build",
+    "build:css": "tailwindcss -i ./app/globals.css -o ./app/globals.css --minify",
+    "build": "npm run build:css && next build",
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start"
