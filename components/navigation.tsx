@@ -76,25 +76,39 @@ export function Navigation() {
             </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-6">
+          {/* Desktop Navigation - CENTER */}
+          <div className="hidden md:flex items-center space-x-8">
             <Link
               href="/"
-              className={`text-sm transition-colors ${theme === "dark" ? "text-zinc-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
+              className={`text-sm font-medium transition-colors hover:text-orange-500 ${
+                theme === "dark" ? "text-white" : "text-gray-900"
+              }`}
             >
               Home
             </Link>
             <Link
-              href="/product"
-              className={`text-sm transition-colors ${theme === "dark" ? "text-zinc-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
+              href="/products"
+              className={`text-sm font-medium transition-colors hover:text-orange-500 ${
+                theme === "dark" ? "text-white" : "text-gray-900"
+              }`}
             >
               Shop
             </Link>
             <Link
               href="/about"
-              className={`text-sm transition-colors ${theme === "dark" ? "text-zinc-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
+              className={`text-sm font-medium transition-colors hover:text-orange-500 ${
+                theme === "dark" ? "text-white" : "text-gray-900"
+              }`}
             >
               About
+            </Link>
+            <Link
+              href="/track-order"
+              className={`text-sm font-medium transition-colors hover:text-orange-500 ${
+                theme === "dark" ? "text-white" : "text-gray-900"
+              }`}
+            >
+              Track Order
             </Link>
           </div>
 
@@ -179,6 +193,13 @@ export function Navigation() {
               onClick={() => setMobileMenuOpen(false)}
             >
               About
+            </Link>
+            <Link
+              href="/track-order"
+              className={`block py-2.5 px-3 rounded-lg text-sm ${theme === "dark" ? "text-zinc-300 hover:bg-zinc-900" : "text-gray-700 hover:bg-gray-100"}`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Track Order
             </Link>
             <div className="pt-2">
               <Link href="/product" onClick={() => setMobileMenuOpen(false)}>

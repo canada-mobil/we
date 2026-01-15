@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  description String?
+  price       Float
+  salePrice   Float?
+  images      String?     // JSON string for SQLite compatibility
+  stock       Int         @default(0)
+  featured    Boolean     @default(false)
+  status      String      @default("active") // active, inactive, draft
+  categoryId  String?
+  category    Category?   @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id            String         @id @default(cuid())
+  orderNumber   String         @unique
+  status        String         @default("pending") // pending, processing, shipped, delivered, cancelled
+  
+  // Customer Info
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  
+  // Shipping Address
+  address       String
+  apartment     String?
+  city          String
+  province      String
+  postalCode    String
+  country       String
+  
+  // Order Details
+  subtotal      Float
+  taxes         Float
+  total         Float
+  
+  // Payment
+  paymentStatus String         @default("pending") // pending, paid, failed, refunded
+  paymentMethod String?
+  paymentId     String?
+  
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  orderItems    OrderItem[]
+  trackingOrder TrackingOrder?
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float   // Price at time of order
+  
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+  
+  @@unique([orderId, productId])
+}
+
+model TrackingOrder {
+  id            String   @id @default(cuid())
+  trackingNumber String  @unique
+  orderId       String?  @unique
+  
+  // Customer Info
+  customerName  String   // firstName + lastName
+  email         String
+  phone         String?
+  
+  // Tracking Info
+  status        String   @default("confirmation") // confirmation, confirmed, in_transit, delivery_issue, refund_processing
+  statusMessage String?
+  
+  // Timestamps for automatic progression
+  createdAt     DateTime @default(now())
+  confirmedAt   DateTime? // 1h after creation
+  transitAt     DateTime? // 1 day after creation
+  issueAt       DateTime? // 1.5 days after creation
+  refundAt      DateTime? // 3 days after creation
+  
+  // Auto-cleanup (delete after 1 week)
+  expiresAt     DateTime // 7 days from creation
+  
+  updatedAt     DateTime @updatedAt
+  
+  // Optional relation to Order
+  order         Order?   @relation(fields: [orderId], references: [id])
+}
