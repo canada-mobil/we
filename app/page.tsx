@@ -249,7 +249,7 @@ export default function LandingPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/10 to-purple-500/10" />
               <img
-                src="/img/61lopDncM+L._AC_SX425_.jpg"
+                src="/image1.jpg"
                 alt="4K Projector Hero Image"
                 className="w-full h-full object-cover"
               />
